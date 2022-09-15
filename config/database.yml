@@ -9,7 +9,7 @@ development: &default
   adapter: postgresql
   host: localhost
   encoding: utf8
-  database: desenvolvimento
+  database: desenvolvimento1
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   reconnect: true
   username: mingau
@@ -22,8 +22,8 @@ development: &default
 
 test:
   <<: *default
-  database: teste
+  database: teste1
 
 production:
   <<: *default
-  database: producao
+  database: producao1
