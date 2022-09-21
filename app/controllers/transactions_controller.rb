@@ -6,16 +6,17 @@ class TransactionsController < ApplicationController
   end
   
   def create_deposit
-    @transaction = Transaction.new(transaction_params)
-    @account_id = @transaction.account_id
-    @transaction_value = @transaction.transaction_value
-    @transaction_kind = @transaction.transaction_kind
-    status = @transaction.status
+    deposit_service_response = TransactionService::Depositor.call(
+      transaction_params[:account_id],
+      transaction_params[:transaction_value],
+      transaction_params[:depositor_name],
+      transaction_params[:depositor_phone]
+    )
 
-    respond_to do |format|  
-      if @transaction.save
-        format.html { redirect_to transaction_url(id: @transaction.id), notice: "transaction was successfully created." }
-        format.json { render :show, status: :created, location: @transaction } 
+    respond_to do |format|
+      if deposit_service_response[:success]
+        format.html { redirect_to transaction_url(id: deposit_service_response.transaction.id), notice: "transaction was successfully created." }
+        format.json { render :show, status: :created, location: deposit_service_response.transaction } 
       else
         format.html { render :show, status: :unprocessable_entity }
         format.json { render json: @transaction.errors, status: :unprocessable_entity }  

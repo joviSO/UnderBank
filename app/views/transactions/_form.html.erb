@@ -26,6 +26,16 @@
     <%= form.text_field :account_id, value: 1 %>
   </div>
 
+  <div class="field">
+    <%= form.label :nome%>
+    <%= form.text_field :depositor_name, value: "luan" %>
+  </div>
+
+   <div class="field">
+    <%= form.label :numero %>
+    <%= form.number_field :depositor_phone, value: 88999987 %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
